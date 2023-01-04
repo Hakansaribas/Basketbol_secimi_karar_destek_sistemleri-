@@ -1,0 +1,57 @@
+<?php
+$baglanti=mysqli_connect("localhost","root","","basketbolcu_secimi_veritabani");
+$baglanti->set_charset("utf8");
+if($baglanti){
+    if ($_POST) {
+        if(strip_tags(trim(isset($_POST["sporcu_id"])))){
+            $sporcu_id=$_POST["sporcu_id"];
+        }
+		if(strip_tags(trim(isset($_POST["ad"])))){
+            $ad=$_POST["ad"];
+			
+        }
+        if(strip_tags(trim(isset($_POST["soyad"])))){
+            $soyad=$_POST["soyad"];
+        }
+		if(strip_tags(trim(isset($_POST["yas"])))){
+            $yas=$_POST["yas"];
+        }
+		if(strip_tags(trim(isset($_POST["takim_id"])))){
+            $takim_id=$_POST["takim_id"];
+			
+        }
+        if(strip_tags(trim(isset($_POST["mevki_id"])))){
+            $mevki_id=$_POST["mevki_id"];
+        }
+		if(strip_tags(trim(isset($_POST["boy"])))){
+            $boy=$_POST["boy"];
+        }
+		if(strip_tags(trim(isset($_POST["kilo"])))){
+            $kilo=$_POST["kilo"];
+		}
+			
+      
+  
+        		   
+
+
+        $sorgu=mysqli_query($baglanti,"INSERT INTO oyuncu(sporcu_id,ad,soyad,yas,takim_id,mevki_id,boy,kilo) VALUES
+            ('".$sporcu_id."','".$ad."','".$soyad."','".$yas."','".$takim_id."','".$mevki_id."','".$boy."','".$kilo."')");
+        if ($sorgu==true) {
+            echo "Kayıt veritabanına eklendi.";
+			header( "refresh:2;url=yeni.php" ); 
+        } else {
+            echo "Hata:".$sorgu.$baglanti->error;
+        }
+		mysqli_close($baglanti);
+    } else {
+        echo "Veriler gelmedi";
+    }
+}
+
+
+
+else { 
+    die("bağlantı sağlanamadı");
+}
+?>
